@@ -46,12 +46,15 @@ const viewAllCustomers = async () => {
 	console.clear();
 	console.log("2. View all customers. ")
 	const customers = await Customer.find({});
-	console.log("All Customers: ", customers);
+	console.log("All Customers: ");
+    customers.forEach((customer) =>{
+        console.log(`id: ${customer._id} -- Name: ${customer.name} Age: ${customer.age}`)
+    });
 }
 
 const updateCustomer = async () => {
 	console.clear();
-	console.log("3. Update a Customer. ")
+	await viewAllCustomers();
     console.log("Please enter the customer ID: ");
     const customerId = prompt();
     console.log(`
@@ -95,6 +98,8 @@ const updateCustomer = async () => {
 const deleteCustomer = async () =>{
 	console.clear();
 	console.log("4. Delete a customer. ")
+    await viewAllCustomers();
+
 	console.log("please enter the ID of the record you wish to delete")
 	const id = prompt();
 	const removedCustomer = await Customer.findByIdAndDelete(id);
